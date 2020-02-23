@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OperationsViewController.swift
 //  JumboOperation
 //
 //  Created by zeus medina on 2/23/20.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class OperationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.red
     }
 
 
