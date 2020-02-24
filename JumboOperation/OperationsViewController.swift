@@ -8,11 +8,16 @@
 
 import UIKit
 
-class OperationsViewController: UIViewController {
+protocol OperationView: class {
+    
+}
+
+class OperationsViewController: UIViewController, OperationView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.red
+        let operationsController = OperationsController()
     }
 
 
