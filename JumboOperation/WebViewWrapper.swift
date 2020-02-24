@@ -26,7 +26,7 @@ class WebViewWrapper: NSObject {
         let script = WKUserScript(source: jsScript, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         // not sure whether to add the script here or simply evaluate it
         let contentController = WKUserContentController()
-        contentController.addUserScript(script)
+//        contentController.addUserScript(script)
         contentController.add(self, name: Constants.jumbo)
 
         let config = WKWebViewConfiguration()
@@ -40,8 +40,10 @@ class WebViewWrapper: NSObject {
          }
     }
     
+    // TODO: write a function that concats the 2 strings and UNIT TEST IT
     func startNewOperation(id: String) {
-        webView.evaluateJavaScript("startOperation(\(id)") { (result, error) in
+        let operationFunctionCall = "startOperation(\(id))"
+        webView.evaluateJavaScript(operationFunctionCall) { (result, error) in
             if error != nil {
                 print(result)
             }
@@ -65,7 +67,7 @@ extension WebViewWrapper: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript(jsScript) { (response, error) in
             if error == nil {
-                self.startNewOperation(id: "0")
+                self.startNewOperation(id: "1")
             }
         }
     }
