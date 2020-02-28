@@ -64,6 +64,11 @@ final class OperationsLogicController: NSObject {
 
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print(message)
+        DispatchQueue.main.async {
+            print(message)
+            let progressText = message.body as! String
+            self.viewDelegate?.updateLabel(text: progressText)
+        }
+        
     }
 }
