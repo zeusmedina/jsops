@@ -1,5 +1,5 @@
 //
-//  OperationsController.swift
+//  OperationsLogicController.swift
 //  JumboOperation
 //
 //  Created by zeus medina on 2/23/20.
@@ -12,7 +12,7 @@ import Foundation
 // This class is responsible for initializing our web view wrapper and listening to updates via delegate
 // Also "tells" the view what to do
 // Some may prefer view model naming or "presenter" depending on the architecture
-final class OperationsController {
+final class OperationsLogicController {
     
     // Ideally we want our view layer to be as "dumb" as possible... I've recently started occassionaly backing views with a protocol
     // Keeps business logic decoupled from UIKit and this code could be shared with for example a Mac OS app

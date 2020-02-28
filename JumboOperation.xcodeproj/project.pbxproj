@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CEA7B8A324032B3000C362E6 /* OperationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A224032B3000C362E6 /* OperationsController.swift */; };
+		CEA7B8A324032B3000C362E6 /* OperationsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */; };
 		CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */; };
 		CEC4A0F924031DC500734B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A0F824031DC500734B8E /* AppDelegate.swift */; };
 		CEC4A0FD24031DC500734B8E /* OperationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A0FC24031DC500734B8E /* OperationsViewController.swift */; };
@@ -27,7 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CEA7B8A224032B3000C362E6 /* OperationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsController.swift; sourceTree = "<group>"; };
+		CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsLogicController.swift; sourceTree = "<group>"; };
 		CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapper.swift; sourceTree = "<group>"; };
 		CEC4A0F524031DC500734B8E /* JumboOperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JumboOperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC4A0F824031DC500734B8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			children = (
 				CEC4A0F824031DC500734B8E /* AppDelegate.swift */,
 				CEC4A0FC24031DC500734B8E /* OperationsViewController.swift */,
-				CEA7B8A224032B3000C362E6 /* OperationsController.swift */,
+				CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */,
 				CEC4A10124031DCB00734B8E /* Assets.xcassets */,
 				CEC4A10324031DCB00734B8E /* LaunchScreen.storyboard */,
 				CEC4A10624031DCB00734B8E /* Info.plist */,
@@ -199,7 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA7B8A324032B3000C362E6 /* OperationsController.swift in Sources */,
+				CEA7B8A324032B3000C362E6 /* OperationsLogicController.swift in Sources */,
 				CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */,
 				CEC4A0FD24031DC500734B8E /* OperationsViewController.swift in Sources */,
 				CEC4A0F924031DC500734B8E /* AppDelegate.swift in Sources */,

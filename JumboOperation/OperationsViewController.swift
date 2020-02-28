@@ -17,7 +17,7 @@ class OperationsViewController: UIViewController, OperationView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.red
-        let operationsController = OperationsController()
+        let operationsController = OperationsLogicController()
     }
 
 
