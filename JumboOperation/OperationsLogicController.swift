@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import WebKit
 
 // TODO: protocol?
-// This class is responsible for initializing our web view wrapper and listening to updates via delegate
+// This class is responsible for initializing our web view wrapper and recieving messages from our webview
 // Also "tells" the view what to do
 // Some may prefer view model naming or "presenter" depending on the architecture
-final class OperationsLogicController {
+final class OperationsLogicController: NSObject {
     
     // Ideally we want our view layer to be as "dumb" as possible... I've recently started occassionaly backing views with a protocol
     // Keeps business logic decoupled from UIKit and this code could be shared with for example a Mac OS app
@@ -23,7 +24,8 @@ final class OperationsLogicController {
     // download the js file (loading state during this -> error if it fails)
     // inject this file into our webview wrapper
     
-    init() {
+    override init() {
+        super.init()
         downloadJSFile()
     }
     
@@ -45,7 +47,7 @@ final class OperationsLogicController {
             if let localURL = localURL {
                 if let jsFile = try? String(contentsOf: localURL) {
                     DispatchQueue.main.async {
-                        self.webViewWrapper = WebViewWrapper(jsScript: jsFile)
+                        self.webViewWrapper = WebViewWrapper(jsScript: jsFile, messageHandler: self)
                     }
                 }
             }
@@ -57,5 +59,11 @@ final class OperationsLogicController {
     // MARK: - String Constants
     private enum Constants {
         static let javascriptFileURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
+    }
+}
+
+extension OperationsLogicController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        print(message)
     }
 }

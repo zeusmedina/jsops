@@ -17,10 +17,9 @@ class WebViewWrapper: NSObject {
     // This is unfortunately a var and gets intialized twice
     // Need to find a way around this... but the webview requires a content controller that sets self as the delegate
     // but self doesn't exist prior to initialization... come back and fix this if time
-    // NOTE: Evaluating the source script instead of using a content controller would likely remedy this. However I wouldn't want
     private var webView: WKWebView
     private let jsScript: String
-    init(jsScript: String) {
+    init(jsScript: String, messageHandler: WKScriptMessageHandler) {
         self.webView = WKWebView()
         self.jsScript = jsScript
         super.init()
@@ -30,7 +29,7 @@ class WebViewWrapper: NSObject {
         // not sure whether to add the script here or simply evaluate it
         let contentController = WKUserContentController()
         contentController.addUserScript(script)
-        contentController.add(self, name: Constants.jumbo)
+        contentController.add(messageHandler, name: Constants.jumbo)
 
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -53,17 +52,10 @@ class WebViewWrapper: NSObject {
         }
     }
     
-    
     private enum Constants {
         static let jumbo = "jumbo"
         static let codingChallengeURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
         static let queue = "jumbo.concurrent.queue"
-    }
-}
-
-extension WebViewWrapper: WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print(message)
     }
 }
 
