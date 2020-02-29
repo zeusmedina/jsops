@@ -8,26 +8,31 @@
 
 import Foundation
 import WebKit
+import os.log
 
 // TODO: protocol?
 // This class is responsible for initializing our web view wrapper and recieving messages from our webview
-// Also "tells" the view what to do
-// Some may prefer view model naming or "presenter" depending on the architecture
+// Also "tells" the view what to do... some may prefer view model naming or "presenter" depending on the architecture/dev team
 final class OperationsLogicController: NSObject {
+    
+    private let decoder = JSONDecoder()
+    private var webViewWrapper: WebViewWrapper?
+    
+    // Internal index used to keep track of our operations... used at the id of our messages
+    // NOTE: In practice id's should probably be a random generated string
+    private var index = 1
     
     // Ideally we want our view layer to be as "dumb" as possible... I've recently started occassionaly backing views with a protocol
     // Keeps business logic decoupled from UIKit and this code could be shared with for example a Mac OS app
     // Also allows mocking out the view to write unit tests... a potentially reasonable compromise if XCUI tests aren't being written
     weak var viewDelegate: OperationView?
     
-    private var webViewWrapper: WebViewWrapper?
-    // download the js file (loading state during this -> error if it fails)
-    // inject this file into our webview wrapper
-    
     override init() {
         super.init()
         downloadJSFile()
     }
+    
+    // MARK: - Public funcitions
     
     func beginNewOperation() {
         guard let wrapper = webViewWrapper else { return }
@@ -47,7 +52,9 @@ final class OperationsLogicController: NSObject {
             if let localURL = localURL {
                 if let jsFile = try? String(contentsOf: localURL) {
                     DispatchQueue.main.async {
-                        self.webViewWrapper = WebViewWrapper(jsScript: jsFile, messageHandler: self)
+                        self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
+                                                             messageHandler: self,
+                                                             navigationDelegate: self)
                     }
                 }
             }
@@ -65,10 +72,25 @@ final class OperationsLogicController: NSObject {
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         DispatchQueue.main.async {
-            print(message)
-            let progressText = message.body as! String
-            self.viewDelegate?.updateLabel(text: progressText)
+            // TODO: handle guard - we'd probably want to show an alert OR set our progress bar to red
+            guard let jsonString = message.body as? String, let data = jsonString.data(using: .utf8) else { return }
+            do {
+                let messageModel = try self.decoder.decode(Message.self, from: data)
+                print(messageModel)
+//                self.viewDelegate?.updateLabel(text: progressText)
+            } catch {
+                os_log("Error decoding a message", log: .default, type: .error)
+            }
+            
         }
         
+    }
+}
+
+extension OperationsLogicController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        // stop loading state on view
+        webViewWrapper?.startNewOperation(id: "2")
+        webViewWrapper?.startNewOperation(id: "3")
     }
 }

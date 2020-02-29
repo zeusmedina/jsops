@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        // With no navigation in the app I decided not to embed our view controller in a navigation controller
         window?.rootViewController = OperationsViewController()
         window?.makeKeyAndVisible()
         return true

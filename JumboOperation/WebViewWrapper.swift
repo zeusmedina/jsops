@@ -9,17 +9,18 @@
 import Foundation
 import WebKit
 
-
 class WebViewWrapper: NSObject {
     
-    private let concurrentQueue = DispatchQueue(label: Constants.queue)
+    //private let concurrentQueue = DispatchQueue(label: Constants.queue)
     
     // This is unfortunately a var and gets intialized twice
     // Need to find a way around this... but the webview requires a content controller that sets self as the delegate
     // but self doesn't exist prior to initialization... come back and fix this if time
     private var webView: WKWebView
     private let jsScript: String
-    init(jsScript: String, messageHandler: WKScriptMessageHandler) {
+    init(jsScript: String,
+         messageHandler: WKScriptMessageHandler,
+         navigationDelegate: WKNavigationDelegate) {
         self.webView = WKWebView()
         self.jsScript = jsScript
         super.init()
@@ -36,7 +37,7 @@ class WebViewWrapper: NSObject {
         
 
         webView = WKWebView(frame: .zero, configuration: config)
-        webView.navigationDelegate = self
+        webView.navigationDelegate = navigationDelegate
         if let url = URL(string: Constants.codingChallengeURL) {
             webView.load(URLRequest(url: url))
          }
@@ -44,7 +45,7 @@ class WebViewWrapper: NSObject {
     
     // TODO: write a function that concats the 2 strings and UNIT TEST IT
     func startNewOperation(id: String) {
-        let operationFunctionCall = "startOperation(\(id))"
+        let operationFunctionCall = "startOperation('\(id)')"
         webView.evaluateJavaScript(operationFunctionCall) { (result, error) in
             if error != nil {
                 print(result)
@@ -56,11 +57,5 @@ class WebViewWrapper: NSObject {
         static let jumbo = "jumbo"
         static let codingChallengeURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
         static let queue = "jumbo.concurrent.queue"
-    }
-}
-
-extension WebViewWrapper: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.startNewOperation(id: "2")
     }
 }
