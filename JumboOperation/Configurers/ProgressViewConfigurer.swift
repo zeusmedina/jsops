@@ -12,7 +12,6 @@ struct ProgressViewConfigurer {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.progressTintColor = .purple
         progressView.trackTintColor = .lightGray
-        progressView.progress = 0.25
         progressView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         progressView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return progressView
@@ -28,7 +27,7 @@ struct ProgressViewConfigurer {
         switch message.message {
         case .progress:
             guard let progress = message.progress else { return}
-            let progressValue = Float(progress / 100)
+            let progressValue = Float(Float(progress) / 100)
             progressView.setProgress(progressValue, animated: true)
         case .completed:
             progressView.progressTintColor = .green
