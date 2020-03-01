@@ -9,11 +9,18 @@
 import UIKit
 
 protocol OperationView: class {
-    func updateLabel(text: String)
+    func showLoadingState()
+    func stopLoadingState()
+    func insertNewProgressView()
+    func updateProgressView(at index: Int?, with message: Message)
+    func presentAlert(with text: String)
 }
 
 /// Allows users to initiate a new operation and observe the operation's progress
 class OperationsViewController: UIViewController {
+    
+    
+    let logicController = OperationsLogicController()
     
     // For simplicity I'm configuring all of my views within the VC
     // Configuration of views can be extracted to a dedicated object to help with testing and decoupling of logic
@@ -40,37 +47,16 @@ class OperationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let operationsController = OperationsLogicController()
-        operationsController.viewDelegate = self
-        setupConstraints()
-        
-        let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.progressTintColor = .red
-        progressView.trackTintColor = .lightGray
-        progressView.progress = 0.25
-        progressView.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        progressView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        stackView.addArrangedSubview(addOperationButton)
-        stackView.addArrangedSubview(progressView)
+        logicController.viewDelegate = self
+        setupViews()
     }
     
     // Inform our logic controller that the button was tapped
     @objc func addOperationButtonTapped() {
-        
+        logicController.addOperationTapped()
     }
     
-    // MARK: - User Interface changes
-    // A state machine backed by some enum would be my usual approach here, the enums can have some associated values if needed
-    // Then we'd just have a function like render(state: State)
-    func showLoadingState() {
-        
-    }
-    
-    func hideLoadingState() {
-        
-    }
-    
-    func setupConstraints() {
+    func setupViews() {
         view.addSubview(stackView)
         let constaints: [NSLayoutConstraint] = [
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -79,6 +65,7 @@ class OperationsViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constaints)
+        stackView.addArrangedSubview(addOperationButton)
     }
     
     // Creates a new loading bar view and inserts it into our stack view
@@ -91,15 +78,33 @@ class OperationsViewController: UIViewController {
     }
 
 }
-
+// MARK: - Operation View Conformance (User Interface changes)
+// A state machine backed by some enum would be my usual approach here, the enums can have some associated values if needed
+// Then we'd just have a function like render(state: State)
 extension OperationsViewController: OperationView {
-    func updateLabel(text: String) {
+    func showLoadingState() {
+        return
     }
+    
+    func stopLoadingState() {
+        return
+    }
+    
+    func presentAlert(with text: String) {
+        return
+    }
+    
+    // Considered passing in an index param
+    func insertNewProgressView() {
+        let progressView = ProgressViewConfigurer.configureDefault()
+        stackView.addArrangedSubview(progressView)
+    }
+    
+    func updateProgressView(at index: Int?, with message: Message) {
+        guard let index = index, let progressView = stackView.arrangedSubviews[index] as? UIProgressView else { return }
+        ProgressViewConfigurer.configure(progressView: progressView, with: message)
+    }
+    
 }
 
-extension OperationsViewController {
-    func configureProgressView(progressView: UIProgressView, message: Message) {
-        
-    }
-}
 

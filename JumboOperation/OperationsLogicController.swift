@@ -20,7 +20,8 @@ final class OperationsLogicController: NSObject {
     
     // Internal index used to keep track of our operations... used at the id of our messages
     // NOTE: In practice id's should probably be a random generated string
-    private var index = 1
+    // Exposed for testing
+    private(set) var index = 1
     
     // Ideally we want our view layer to be as "dumb" as possible... I've recently started occassionaly backing views with a protocol
     // Keeps business logic decoupled from UIKit and this code could be shared with for example a Mac OS app
@@ -32,23 +33,26 @@ final class OperationsLogicController: NSObject {
         downloadJSFile()
     }
     
-    // MARK: - Public funcitions
+    // MARK: - Public Functions
     
-    func beginNewOperation() {
+    // Begins a new operation and increments our index
+    func addOperationTapped() {
         guard let wrapper = webViewWrapper else { return }
-        wrapper.startNewOperation(id: "0")
+        wrapper.startNewOperation(indexID: index)
+        index += 1
+        viewDelegate?.insertNewProgressView()
     }
     
-    // TODO: make this testable
+
+    
+    // TODO: make this more testable
     private func downloadJSFile() {
         guard let url = URL(string: Constants.javascriptFileURL) else {
             // error
             return
         }
-
         let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, error in
             //TODO: handle error
-            // make sure to do ui updates on the main thread
             if let localURL = localURL {
                 if let jsFile = try? String(contentsOf: localURL) {
                     DispatchQueue.main.async {
@@ -59,7 +63,6 @@ final class OperationsLogicController: NSObject {
                 }
             }
         }
-
         task.resume()
     }
     
@@ -71,13 +74,14 @@ final class OperationsLogicController: NSObject {
 
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        // We can probably drop this dispatch... I initially thought that evaluate js ran on a different thread but turns out it runs on main
         DispatchQueue.main.async {
             // TODO: handle guard - we'd probably want to show an alert OR set our progress bar to red
             guard let jsonString = message.body as? String, let data = jsonString.data(using: .utf8) else { return }
             do {
                 let messageModel = try self.decoder.decode(Message.self, from: data)
                 print(messageModel)
-//                self.viewDelegate?.updateLabel(text: progressText)
+                self.viewDelegate?.updateProgressView(at: Int(messageModel.id), with: messageModel)
             } catch {
                 os_log("Error decoding a message", log: .default, type: .error)
             }
@@ -89,8 +93,6 @@ extension OperationsLogicController: WKScriptMessageHandler {
 
 extension OperationsLogicController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // stop loading state on view
-        webViewWrapper?.startNewOperation(id: "2")
-        webViewWrapper?.startNewOperation(id: "3")
+        // TODO: stop loading state on view
     }
 }

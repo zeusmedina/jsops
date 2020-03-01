@@ -43,14 +43,16 @@ class WebViewWrapper: NSObject {
          }
     }
     
-    // TODO: write a function that concats the 2 strings and UNIT TEST IT
-    func startNewOperation(id: String) {
+    // Discardable for unit testing purposes
+    @discardableResult func startNewOperation(indexID: Int) -> String {
+        let id = String(indexID)
         let operationFunctionCall = "startOperation('\(id)')"
         webView.evaluateJavaScript(operationFunctionCall) { (result, error) in
             if error != nil {
-                print(result)
+                    print(error)
             }
         }
+        return operationFunctionCall
     }
     
     private enum Constants {
