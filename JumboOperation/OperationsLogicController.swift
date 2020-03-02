@@ -32,10 +32,14 @@ final class OperationsLogicController: NSObject {
     init(fileDownloader: FileDownloader) {
         self.fileDownloader = fileDownloader
         super.init()
-        downloadJSFile()
     }
     
-    // MARK: - Public Functions
+    /// Sets the view delegate and begins downloading our JS file
+    func attachView(view: OperationView) {
+        viewDelegate = view
+        viewDelegate?.showLoadingState()
+        downloadJSFile()
+    }
     
     // Begins a new operation and increments our index
     func addOperationTapped() {
@@ -45,9 +49,7 @@ final class OperationsLogicController: NSObject {
         viewDelegate?.insertNewProgressView()
     }
     
-
-    
-    // TODO: make this more testable
+    /// Fetches our javascript string represenation from a URL
     private func downloadJSFile() {
         fileDownloader.downloadFile(from: Constants.javascriptFileURL) { [weak self] result in
             guard let self = self else { return }
@@ -56,7 +58,7 @@ final class OperationsLogicController: NSObject {
                 self.viewDelegate?.stopLoadingState()
                 self.viewDelegate?.presentAlert(with: Constants.error)
             case .success(let jsFile):
-                // Starts
+                // Starts downloading our JS file
                 self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
                                                      messageHandler: self,
                                                      navigationDelegate: self)
@@ -68,33 +70,32 @@ final class OperationsLogicController: NSObject {
     // MARK: - String Constants
     private enum Constants {
         static let javascriptFileURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
-        static let error = "Oops... looks like there was an error downloading JS file"
+        static let error = "Oops... looks like there was an error"
     }
 }
 
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // We can probably drop this dispatch... I initially thought that evaluate js ran on a background thread
+        // TODO:  We can probably drop this dispatch...
         DispatchQueue.main.async {
-            // TODO: handle guard - we'd probably want to show an alert OR set our progress bar to red
-            guard let jsonString = message.body as? String, let data = jsonString.data(using: .utf8) else { return }
-            do {
-                let messageModel = try self.decoder.decode(Message.self, from: data)
-                print(messageModel)
-                self.viewDelegate?.updateProgressView(at: Int(messageModel.id), with: messageModel)
-            } catch {
+            guard let jsonString = message.body as? String,
+                let data = jsonString.data(using: .utf8),
+                let messageModel = try? self.decoder.decode(Message.self, from: data)
+            else {
+                self.viewDelegate?.presentAlert(with: Constants.error)
                 os_log("Error decoding a message", log: .default, type: .error)
+                return
             }
-            
+            self.viewDelegate?.updateProgressView(at: Int(messageModel.id), with: messageModel)
         }
-        
     }
 }
 
 /// Loading of our webview completed we're ready to show the default UI
-/// Note that I'm assuming the load was succesful here... I'd add additional error handling
+/// Note that I'm assuming the load was successful here... I'd add additional error handling
 extension OperationsLogicController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.viewDelegate?.showDefaultState()
         self.viewDelegate?.stopLoadingState()
     }
 }

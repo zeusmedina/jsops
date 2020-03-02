@@ -9,6 +9,7 @@
 import Foundation
 
 /// A concrete implementation of FileDownloader
+/// Depending on how often the JS is expected to change... a cache can be introduced to avoid downloading from the network each time
 class ConcreteFileDownloader: FileDownloader {
     enum NetworkError: Error {
         case badURL

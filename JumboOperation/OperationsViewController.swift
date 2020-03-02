@@ -9,6 +9,7 @@
 import UIKit
 
 protocol OperationView: class {
+    func showDefaultState()
     func showLoadingState()
     func stopLoadingState()
     func insertNewProgressView()
@@ -18,8 +19,6 @@ protocol OperationView: class {
 
 /// Allows users to initiate a new operation and observe the operation's progress
 class OperationsViewController: UIViewController {
-    
-    
     let logicController = OperationsLogicController(fileDownloader: ConcreteFileDownloader())
     
     // For simplicity I'm configuring all of my views within the VC
@@ -47,9 +46,7 @@ class OperationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        logicController.viewDelegate = self
-        setupViews()
-        showLoadingState()
+        logicController.attachView(view: self)
     }
     
     // Inform our logic controller that the button was tapped
@@ -69,11 +66,6 @@ class OperationsViewController: UIViewController {
         stackView.addArrangedSubview(addOperationButton)
     }
     
-    // Creates a new loading bar view and inserts it into our stack view
-    func addNewLoadingBar() {
-        
-    }
-    
     private enum Constants {
         static let addOperation = "Add operation"
     }
@@ -83,13 +75,15 @@ class OperationsViewController: UIViewController {
 // A state machine backed by some enum would be my usual approach here, the enums can have some associated values if needed
 // Then we'd just have a function like render(state: State)
 extension OperationsViewController: OperationView {
+    func showDefaultState() {
+        self.setupViews()
+    }
     func showLoadingState() {
         self.showSpinner()
     }
     
     func stopLoadingState() {
         self.removeSpinner()
-        setupViews()
     }
     
     func presentAlert(with text: String) {

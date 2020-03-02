@@ -9,7 +9,7 @@
 import Foundation
 import WebKit
 
-/// A simple wrapper around WKWebView with a convenience function for executing javascript 
+/// A simple wrapper around WKWebView with a convenience function for executing javascript
 class WebViewWrapper: NSObject {
     // This is unfortunately a var and gets intialized twice
     // Need to find a way around this... but the webview requires a content controller that sets self as the delegate
@@ -49,6 +49,7 @@ class WebViewWrapper: NSObject {
     @discardableResult func startNewOperation(indexID: Int) -> String {
         let id = String(indexID)
         let operationFunctionCall = "startOperation('\(id)')"
+        /// Documentation states completion always runs on main thread
         webView.evaluateJavaScript(operationFunctionCall) { (result, error) in
             if error != nil {
                     print(error)
