@@ -11,8 +11,8 @@ import UIKit
 var globalSpinner : UIView?
  
 extension UIViewController {
-    func showSpinner(presentingView : UIView) {
-        let spinnerView = UIView.init(frame: presentingView.bounds)
+    func showSpinner() {
+        let spinnerView = UIView.init(frame: self.view.bounds)
         spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.color = .white
@@ -21,7 +21,7 @@ extension UIViewController {
         
         DispatchQueue.main.async {
             spinnerView.addSubview(activityIndicator)
-            presentingView.addSubview(spinnerView)
+            self.view.addSubview(spinnerView)
         }
         
         globalSpinner = spinnerView

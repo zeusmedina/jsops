@@ -15,6 +15,7 @@ import os.log
 // Also "tells" the view what to do... some may prefer view model naming or "presenter" depending on the architecture/dev team
 final class OperationsLogicController: NSObject {
     
+    private let fileDownloader: FileDownloader
     private let decoder = JSONDecoder()
     private var webViewWrapper: WebViewWrapper?
     
@@ -28,7 +29,8 @@ final class OperationsLogicController: NSObject {
     // Also allows mocking out the view to write unit tests... a potentially reasonable compromise if XCUI tests aren't being written
     weak var viewDelegate: OperationView?
     
-    override init() {
+    init(fileDownloader: FileDownloader) {
+        self.fileDownloader = fileDownloader
         super.init()
         downloadJSFile()
     }
@@ -47,34 +49,32 @@ final class OperationsLogicController: NSObject {
     
     // TODO: make this more testable
     private func downloadJSFile() {
-        guard let url = URL(string: Constants.javascriptFileURL) else {
-            // error
-            return
-        }
-        let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, error in
-            //TODO: handle error
-            if let localURL = localURL {
-                if let jsFile = try? String(contentsOf: localURL) {
-                    DispatchQueue.main.async {
-                        self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
-                                                             messageHandler: self,
-                                                             navigationDelegate: self)
-                    }
-                }
+        fileDownloader.downloadFile(from: Constants.javascriptFileURL) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure:
+                self.viewDelegate?.stopLoadingState()
+                self.viewDelegate?.presentAlert(with: Constants.error)
+            case .success(let jsFile):
+                // Starts
+                self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
+                                                     messageHandler: self,
+                                                     navigationDelegate: self)
             }
         }
-        task.resume()
+
     }
     
     // MARK: - String Constants
     private enum Constants {
         static let javascriptFileURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
+        static let error = "Oops... looks like there was an error downloading JS file"
     }
 }
 
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // We can probably drop this dispatch... I initially thought that evaluate js ran on a different thread but turns out it runs on main
+        // We can probably drop this dispatch... I initially thought that evaluate js ran on a background thread
         DispatchQueue.main.async {
             // TODO: handle guard - we'd probably want to show an alert OR set our progress bar to red
             guard let jsonString = message.body as? String, let data = jsonString.data(using: .utf8) else { return }
@@ -91,8 +91,10 @@ extension OperationsLogicController: WKScriptMessageHandler {
     }
 }
 
+/// Loading of our webview completed we're ready to show the default UI
+/// Note that I'm assuming the load was succesful here... I'd add additional error handling
 extension OperationsLogicController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // TODO: stop loading state on view
+        self.viewDelegate?.stopLoadingState()
     }
 }

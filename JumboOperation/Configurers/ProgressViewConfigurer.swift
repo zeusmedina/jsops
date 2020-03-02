@@ -7,7 +7,10 @@
 //
 
 import UIKit
+// Configurers help keep views and models decoupled leading to increased reusability of views and testability
 struct ProgressViewConfigurer {
+    
+    /// Configures a default progress view
     static func configureDefault() -> UIProgressView {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.progressTintColor = .purple
@@ -17,6 +20,7 @@ struct ProgressViewConfigurer {
         return progressView
     }
     
+    /// Updates the progress view according to a Message
     static func configure(progressView: UIProgressView, with message: Message) {
         if let state = message.state, state == .error {
             progressView.progressTintColor = .red
@@ -31,6 +35,7 @@ struct ProgressViewConfigurer {
             progressView.setProgress(progressValue, animated: true)
         case .completed:
             progressView.progressTintColor = .green
+            progressView.trackTintColor = .green
             progressView.setProgress(1.0, animated: true)
         }
     }

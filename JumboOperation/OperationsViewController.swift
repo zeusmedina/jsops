@@ -20,7 +20,7 @@ protocol OperationView: class {
 class OperationsViewController: UIViewController {
     
     
-    let logicController = OperationsLogicController()
+    let logicController = OperationsLogicController(fileDownloader: ConcreteFileDownloader())
     
     // For simplicity I'm configuring all of my views within the VC
     // Configuration of views can be extracted to a dedicated object to help with testing and decoupling of logic
@@ -49,6 +49,7 @@ class OperationsViewController: UIViewController {
         view.backgroundColor = .white
         logicController.viewDelegate = self
         setupViews()
+        showLoadingState()
     }
     
     // Inform our logic controller that the button was tapped
@@ -56,7 +57,7 @@ class OperationsViewController: UIViewController {
         logicController.addOperationTapped()
     }
     
-    func setupViews() {
+    private func setupViews() {
         view.addSubview(stackView)
         let constaints: [NSLayoutConstraint] = [
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -83,11 +84,12 @@ class OperationsViewController: UIViewController {
 // Then we'd just have a function like render(state: State)
 extension OperationsViewController: OperationView {
     func showLoadingState() {
-        return
+        self.showSpinner()
     }
     
     func stopLoadingState() {
-        return
+        self.removeSpinner()
+        setupViews()
     }
     
     func presentAlert(with text: String) {
