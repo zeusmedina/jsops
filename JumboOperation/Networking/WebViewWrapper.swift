@@ -46,13 +46,13 @@ class WebViewWrapper: NSObject {
      - parameter indexID: An indentifier for the operation
      - parameter completionHandler: Gets invoked if an error occurs
      */
-    @discardableResult func startNewOperation(indexID: Int) -> String {
+    @discardableResult func startNewOperation(indexID: Int, completionHandler: @escaping (Error) -> Void) -> String {
         let id = String(indexID)
         let operationFunctionCall = "startOperation('\(id)')"
         /// Documentation states completion always runs on main thread
         webView.evaluateJavaScript(operationFunctionCall) { (result, error) in
-            if error != nil {
-                    print(error)
+            if let error = error {
+                    completionHandler(error)
             }
         }
         return operationFunctionCall

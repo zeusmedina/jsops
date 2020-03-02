@@ -8,15 +8,6 @@
 
 import UIKit
 
-protocol OperationView: class {
-    func showDefaultState()
-    func showLoadingState()
-    func stopLoadingState()
-    func insertNewProgressView()
-    func updateProgressView(at index: Int?, with message: Message)
-    func presentAlert(with text: String)
-}
-
 /// Allows users to initiate a new operation and observe the operation's progress
 class OperationsViewController: UIViewController {
     let logicController = OperationsLogicController(fileDownloader: ConcreteFileDownloader())
@@ -49,11 +40,12 @@ class OperationsViewController: UIViewController {
         logicController.attachView(view: self)
     }
     
-    // Inform our logic controller that the button was tapped
+    /// Inform our logic controller that the button was tapped
     @objc func addOperationButtonTapped() {
         logicController.addOperationTapped()
     }
     
+    /// Setup our default layout 
     private func setupViews() {
         view.addSubview(stackView)
         let constaints: [NSLayoutConstraint] = [
@@ -86,8 +78,13 @@ extension OperationsViewController: OperationView {
         self.removeSpinner()
     }
     
+    // TODO: move configuration of alert elsewhere
     func presentAlert(with text: String) {
-        return
+        let alert = UIAlertController(title: nil,
+                                      message: text,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
     // Considered passing in an index param

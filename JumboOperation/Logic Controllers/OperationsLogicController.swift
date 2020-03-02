@@ -34,17 +34,23 @@ final class OperationsLogicController: NSObject {
         super.init()
     }
     
-    /// Sets the view delegate and begins downloading our JS file
+    /**
+     Sets the delegate and begins downloading JS file. Also informs the view to begin showing the loading state
+     - parameter view: An OperationView to set as the delegate
+     */
     func attachView(view: OperationView) {
         viewDelegate = view
         viewDelegate?.showLoadingState()
         downloadJSFile()
     }
     
-    // Begins a new operation and increments our index
+    /// Begins a new operation, increments our index, and tells our view to display a new progress view
     func addOperationTapped() {
         guard let wrapper = webViewWrapper else { return }
-        wrapper.startNewOperation(indexID: index)
+        wrapper.startNewOperation(indexID: index) { [weak self] error in
+            guard let self = self else { return }
+            self.viewDelegate?.presentAlert(with: Constants.startError)
+        }
         index += 1
         viewDelegate?.insertNewProgressView()
     }
@@ -71,12 +77,12 @@ final class OperationsLogicController: NSObject {
     private enum Constants {
         static let javascriptFileURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
         static let error = "Oops... looks like there was an error"
+        static let startError = "There was an error starting the operatio"
     }
 }
 
 extension OperationsLogicController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // TODO:  We can probably drop this dispatch...
         DispatchQueue.main.async {
             guard let jsonString = message.body as? String,
                 let data = jsonString.data(using: .utf8),

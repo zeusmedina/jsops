@@ -16,7 +16,7 @@ class ConcreteFileDownloader: FileDownloader {
     }
     
     /**
-     Function that downloads a file and converts into a string
+     Function that downloads a file and converts it into a string
      - parameter urlString: Describe the alpha param
      - parameter completionHandler: Accepts a completion handler... when invoked either returns a string representation of the file or an error
     */

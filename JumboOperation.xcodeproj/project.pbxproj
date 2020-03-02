@@ -12,6 +12,7 @@
 		CE40176D240C5B0C00E2CD01 /* ViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40176C240C5B0C00E2CD01 /* ViewController+Loading.swift */; };
 		CE401771240C818700E2CD01 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401770240C818700E2CD01 /* FileDownloader.swift */; };
 		CE401773240C82BE00E2CD01 /* ConcreteFileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401772240C82BE00E2CD01 /* ConcreteFileDownloader.swift */; };
+		CE401775240C9B7500E2CD01 /* OperationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401774240C9B7500E2CD01 /* OperationView.swift */; };
 		CEA7B8A324032B3000C362E6 /* OperationsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */; };
 		CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */; };
 		CEC4A0F924031DC500734B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A0F824031DC500734B8E /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		CE40176C240C5B0C00E2CD01 /* ViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Loading.swift"; sourceTree = "<group>"; };
 		CE401770240C818700E2CD01 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		CE401772240C82BE00E2CD01 /* ConcreteFileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteFileDownloader.swift; sourceTree = "<group>"; };
+		CE401774240C9B7500E2CD01 /* OperationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationView.swift; sourceTree = "<group>"; };
 		CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsLogicController.swift; sourceTree = "<group>"; };
 		CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapper.swift; sourceTree = "<group>"; };
 		CEC4A0F524031DC500734B8E /* JumboOperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JumboOperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				CE401770240C818700E2CD01 /* FileDownloader.swift */,
+				CE401774240C9B7500E2CD01 /* OperationView.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -103,9 +106,26 @@
 		CE40176F240C817B00E2CD01 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */,
 				CE401772240C82BE00E2CD01 /* ConcreteFileDownloader.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		CE401776240C9B8C00E2CD01 /* Logic Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */,
+			);
+			path = "Logic Controllers";
+			sourceTree = "<group>";
+		};
+		CE401777240C9B9500E2CD01 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEC4A0FC24031DC500734B8E /* OperationsViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		CEC4A0EC24031DC500734B8E = {
@@ -129,18 +149,17 @@
 		CEC4A0F724031DC500734B8E /* JumboOperation */ = {
 			isa = PBXGroup;
 			children = (
+				CE401777240C9B9500E2CD01 /* View Controllers */,
+				CE401776240C9B8C00E2CD01 /* Logic Controllers */,
 				CE40176F240C817B00E2CD01 /* Networking */,
 				CE40176E240C816600E2CD01 /* Protocols */,
 				CE401769240B0E6000E2CD01 /* Configurers */,
 				CE401766240AE35F00E2CD01 /* Extensions */,
 				CE4017632408C99500E2CD01 /* Models */,
 				CEC4A0F824031DC500734B8E /* AppDelegate.swift */,
-				CEC4A0FC24031DC500734B8E /* OperationsViewController.swift */,
-				CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */,
 				CEC4A10124031DCB00734B8E /* Assets.xcassets */,
 				CEC4A10324031DCB00734B8E /* LaunchScreen.storyboard */,
 				CEC4A10624031DCB00734B8E /* Info.plist */,
-				CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */,
 			);
 			path = JumboOperation;
 			sourceTree = "<group>";
@@ -256,6 +275,7 @@
 			files = (
 				CEA7B8A324032B3000C362E6 /* OperationsLogicController.swift in Sources */,
 				CE401773240C82BE00E2CD01 /* ConcreteFileDownloader.swift in Sources */,
+				CE401775240C9B7500E2CD01 /* OperationView.swift in Sources */,
 				CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */,
 				CE4017652408C9C500E2CD01 /* Message.swift in Sources */,
 				CEC4A0FD24031DC500734B8E /* OperationsViewController.swift in Sources */,
