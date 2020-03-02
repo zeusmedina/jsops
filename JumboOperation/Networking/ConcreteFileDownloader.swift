@@ -41,6 +41,4 @@ class ConcreteFileDownloader: FileDownloader {
         }
         task.resume()
     }
-    
-    
 }
