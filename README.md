@@ -16,6 +16,8 @@ I tried following single responsiblity principles as best as possible... althoug
 
 A shortcut I took was in using indices as id's for operations. This allowed me to access a stack view's arrange sub view at a particular index instead of generating a random string for operations and then interating over the view hierarchy (or using a potentially expensive operation such as viewWithTag(). A more robust datasource would be an improvement. 
 
+All UI code was done in code. Zero storyboards.
+
 ## Unit Tests
 I wrote a few unit tests testing the view layer and some of the business logic. I'd like to add tests for the model and configurers next.
 
@@ -27,4 +29,3 @@ I wrote a few unit tests testing the view layer and some of the business logic. 
 - There are hard coded colors and values throughout the project. I consolidated most strings into a Constants enum... I'd like to do the same. Colors should be shared across the project from a single source.
 - Adding more unit tests.
 
-## Screenshots
