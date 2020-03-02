@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 
 /// A simple wrapper around WKWebView with a convenience function for executing javascript
-class WebViewWrapper: NSObject {
+class WebViewWrapper: NSObject, JavascriptExecutor {
     // This is unfortunately a var and gets intialized twice
     // Need to find a way around this... but the webview requires a content controller that sets self as the delegate
     // but self doesn't exist prior to initialization... come back and fix this if time

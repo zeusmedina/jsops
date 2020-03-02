@@ -9,23 +9,7 @@
 import XCTest
 @testable import JumboOperation
 
-fileprivate class MockSuccessFileDownloader: FileDownloader {
-    func downloadFile(from urlString: String, completionHandler: @escaping (Result<String, Error>) -> Void) {
-        DispatchQueue.main.async {
-            completionHandler(.success("javascript"))
-        }
-    }
-}
-
-fileprivate class MockErrorFileDownloader: FileDownloader {
-    func downloadFile(from urlString: String, completionHandler: @escaping (Result<String, Error>) -> Void) {
-        DispatchQueue.main.async {
-            completionHandler(.failure(ConcreteFileDownloader.NetworkError.badURL))
-        }
-    }
-}
-
-fileprivate class MockOperationView: OperationView {
+internal class MockOperationView: OperationView {
     let showDefaultStateExp = XCTestExpectation(description: "Show default state called")
     let showLoadingStateExp = XCTestExpectation(description: "Show loading state called")
     let stopLoadingStateExp = XCTestExpectation(description: "Stop loading state called")
@@ -62,7 +46,7 @@ class OperationViewTests: XCTestCase {
     
     fileprivate let successMockFleDownloader = MockSuccessFileDownloader()
     fileprivate let errorMockFileDownloader = MockErrorFileDownloader()
-    fileprivate let viewMock = MockOperationView()
+    fileprivate var viewMock = MockOperationView()
     
     /// When the app launches, the loading state should start, then upon succesful download of JS file
     /// we should stop the loading state and show the default state

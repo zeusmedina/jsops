@@ -17,7 +17,9 @@ final class OperationsLogicController: NSObject {
     
     private let fileDownloader: FileDownloader
     private let decoder = JSONDecoder()
-    private var webViewWrapper: WebViewWrapper?
+    
+    // Exposed for testing... ideally this is passed in the initializer
+    var webViewWrapper: JavascriptExecutor?
     
     // Internal index used to keep track of our operations... used at the id of our messages
     // NOTE: In practice id's should probably be a random generated string

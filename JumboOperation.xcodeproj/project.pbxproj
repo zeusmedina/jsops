@@ -13,6 +13,10 @@
 		CE401771240C818700E2CD01 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401770240C818700E2CD01 /* FileDownloader.swift */; };
 		CE401773240C82BE00E2CD01 /* ConcreteFileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401772240C82BE00E2CD01 /* ConcreteFileDownloader.swift */; };
 		CE401775240C9B7500E2CD01 /* OperationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401774240C9B7500E2CD01 /* OperationView.swift */; };
+		CE401779240CAA1A00E2CD01 /* WebViewWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE401778240CAA1A00E2CD01 /* WebViewWrapperTests.swift */; };
+		CE40177B240CAC1E00E2CD01 /* FileDownloaderMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40177A240CAC1E00E2CD01 /* FileDownloaderMocks.swift */; };
+		CE40177D240CAD2000E2CD01 /* OperationLogicControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40177C240CAD2000E2CD01 /* OperationLogicControllerTests.swift */; };
+		CE40177F240CAEA500E2CD01 /* JavascriptExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40177E240CAEA500E2CD01 /* JavascriptExecutor.swift */; };
 		CEA7B8A324032B3000C362E6 /* OperationsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */; };
 		CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */; };
 		CEC4A0F924031DC500734B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A0F824031DC500734B8E /* AppDelegate.swift */; };
@@ -39,6 +43,10 @@
 		CE401770240C818700E2CD01 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		CE401772240C82BE00E2CD01 /* ConcreteFileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteFileDownloader.swift; sourceTree = "<group>"; };
 		CE401774240C9B7500E2CD01 /* OperationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationView.swift; sourceTree = "<group>"; };
+		CE401778240CAA1A00E2CD01 /* WebViewWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapperTests.swift; sourceTree = "<group>"; };
+		CE40177A240CAC1E00E2CD01 /* FileDownloaderMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloaderMocks.swift; sourceTree = "<group>"; };
+		CE40177C240CAD2000E2CD01 /* OperationLogicControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationLogicControllerTests.swift; sourceTree = "<group>"; };
+		CE40177E240CAEA500E2CD01 /* JavascriptExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavascriptExecutor.swift; sourceTree = "<group>"; };
 		CEA7B8A224032B3000C362E6 /* OperationsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsLogicController.swift; sourceTree = "<group>"; };
 		CEA7B8A424035D1800C362E6 /* WebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapper.swift; sourceTree = "<group>"; };
 		CEC4A0F524031DC500734B8E /* JumboOperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JumboOperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +107,7 @@
 			children = (
 				CE401770240C818700E2CD01 /* FileDownloader.swift */,
 				CE401774240C9B7500E2CD01 /* OperationView.swift */,
+				CE40177E240CAEA500E2CD01 /* JavascriptExecutor.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -169,6 +178,9 @@
 			children = (
 				CEC4A10F24031DCB00734B8E /* OperationViewTests.swift */,
 				CEC4A11124031DCB00734B8E /* Info.plist */,
+				CE401778240CAA1A00E2CD01 /* WebViewWrapperTests.swift */,
+				CE40177A240CAC1E00E2CD01 /* FileDownloaderMocks.swift */,
+				CE40177C240CAD2000E2CD01 /* OperationLogicControllerTests.swift */,
 			);
 			path = JumboOperationTests;
 			sourceTree = "<group>";
@@ -277,6 +289,7 @@
 				CE401773240C82BE00E2CD01 /* ConcreteFileDownloader.swift in Sources */,
 				CE401775240C9B7500E2CD01 /* OperationView.swift in Sources */,
 				CEA7B8A524035D1800C362E6 /* WebViewWrapper.swift in Sources */,
+				CE40177F240CAEA500E2CD01 /* JavascriptExecutor.swift in Sources */,
 				CE4017652408C9C500E2CD01 /* Message.swift in Sources */,
 				CEC4A0FD24031DC500734B8E /* OperationsViewController.swift in Sources */,
 				CEC4A0F924031DC500734B8E /* AppDelegate.swift in Sources */,
@@ -290,7 +303,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE40177D240CAD2000E2CD01 /* OperationLogicControllerTests.swift in Sources */,
 				CEC4A11024031DCB00734B8E /* OperationViewTests.swift in Sources */,
+				CE401779240CAA1A00E2CD01 /* WebViewWrapperTests.swift in Sources */,
+				CE40177B240CAC1E00E2CD01 /* FileDownloaderMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
