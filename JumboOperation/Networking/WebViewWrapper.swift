@@ -17,7 +17,8 @@ class WebViewWrapper: NSObject, JavascriptExecutor {
     private var webView: WKWebView
     private let jsScript: String
     
-    // TODO: move config into it's own function? Test? - this init is a bit large and obfuscates the webview loading
+    // TODO: This init is a bit large and obfuscates the webview loading
+    // Move out into seperate functions and test
     init(jsScript: String,
          messageHandler: WKScriptMessageHandler,
          navigationDelegate: WKNavigationDelegate) {

@@ -48,6 +48,10 @@ final class OperationsLogicController: NSObject {
     
     /// Begins a new operation, increments our index, and tells our view to display a new progress view
     func addOperationTapped() {
+        if index == 5 {
+            viewDelegate?.presentAlert(with: Constants.maxOperationsReached)
+            return
+        }
         guard let wrapper = webViewWrapper else { return }
         wrapper.startNewOperation(indexID: index) { [weak self] error in
             guard let self = self else { return }
@@ -79,7 +83,8 @@ final class OperationsLogicController: NSObject {
     private enum Constants {
         static let javascriptFileURL = "https://jumboassetsv1.blob.core.windows.net/publicfiles/interview_bundle.js"
         static let error = "Oops... looks like there was an error"
-        static let startError = "There was an error starting the operatio"
+        static let startError = "There was an error starting the operation"
+        static let maxOperationsReached = "Limit of 4 operations has been reached"
     }
 }
 

@@ -21,14 +21,19 @@ class OperationLogicControllerTests: XCTestCase {
         let logicController = OperationsLogicController(fileDownloader: MockSuccessFileDownloader())
         logicController.webViewWrapper = JSExecutorMock()
         logicController.attachView(view: MockOperationView())
-        
         // Index should be 1 upon initialization
         XCTAssertEqual(1, logicController.index)
         logicController.addOperationTapped()
         // Index should increment up to 5
         XCTAssertEqual(2, logicController.index)
-        
-        
+        logicController.addOperationTapped()
+        XCTAssertEqual(3, logicController.index)
+        logicController.addOperationTapped()
+        XCTAssertEqual(4, logicController.index)
+        logicController.addOperationTapped()
+        XCTAssertEqual(5, logicController.index)
+        logicController.addOperationTapped()
+        XCTAssertEqual(5, logicController.index)
     }
 
 }
