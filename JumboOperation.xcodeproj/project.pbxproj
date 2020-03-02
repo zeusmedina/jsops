@@ -19,7 +19,7 @@
 		CEC4A0FD24031DC500734B8E /* OperationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A0FC24031DC500734B8E /* OperationsViewController.swift */; };
 		CEC4A10224031DCB00734B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC4A10124031DCB00734B8E /* Assets.xcassets */; };
 		CEC4A10524031DCB00734B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEC4A10324031DCB00734B8E /* LaunchScreen.storyboard */; };
-		CEC4A11024031DCB00734B8E /* JumboOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A10F24031DCB00734B8E /* JumboOperationTests.swift */; };
+		CEC4A11024031DCB00734B8E /* OperationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC4A10F24031DCB00734B8E /* OperationViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		CEC4A10424031DCB00734B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEC4A10624031DCB00734B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEC4A10B24031DCB00734B8E /* JumboOperationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JumboOperationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEC4A10F24031DCB00734B8E /* JumboOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumboOperationTests.swift; sourceTree = "<group>"; };
+		CEC4A10F24031DCB00734B8E /* OperationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationViewTests.swift; sourceTree = "<group>"; };
 		CEC4A11124031DCB00734B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,7 +167,7 @@
 		CEC4A10E24031DCB00734B8E /* JumboOperationTests */ = {
 			isa = PBXGroup;
 			children = (
-				CEC4A10F24031DCB00734B8E /* JumboOperationTests.swift */,
+				CEC4A10F24031DCB00734B8E /* OperationViewTests.swift */,
 				CEC4A11124031DCB00734B8E /* Info.plist */,
 			);
 			path = JumboOperationTests;
@@ -290,7 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEC4A11024031DCB00734B8E /* JumboOperationTests.swift in Sources */,
+				CEC4A11024031DCB00734B8E /* OperationViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
