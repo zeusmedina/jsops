@@ -9,11 +9,15 @@
 import UIKit
 
 /// Allows users to initiate a new operation and observe the operation's progress
-class OperationsViewController: UIViewController {
-    let logicController = OperationsLogicController(fileDownloader: ConcreteFileDownloader())
+class OperationsViewController: UIViewController, LoadingPresentable {
     
+    
+    let logicController = OperationsLogicController(fileDownloader: ConcreteFileDownloader())
     // For simplicity I'm configuring all of my views within the VC
     // Configuration of views can be extracted to a dedicated object to help with testing and decoupling of logic
+    
+    // Conformance to LoadingPresentable requires a UIActivityIndicatorView
+    var activityIndicatorView = UIActivityIndicatorView()
     
     // Stack view to hold our button and loading bars
     private lazy var stackView: UIStackView = {
@@ -75,7 +79,7 @@ extension OperationsViewController: OperationView {
     }
     
     func stopLoadingState() {
-        self.removeSpinner()
+        self.hideSpinner()
     }
     
     // TODO: move configuration of alert elsewhere

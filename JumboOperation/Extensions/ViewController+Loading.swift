@@ -8,29 +8,28 @@
 
 import UIKit
 
-var globalSpinner : UIView?
+protocol LoadingPresentable {
+    var activityIndicatorView: UIActivityIndicatorView { get }
+    func showSpinner()
+    func hideSpinner()
+}
  
-extension UIViewController {
+extension LoadingPresentable where Self: UIViewController {
     func showSpinner() {
-        let spinnerView = UIView.init(frame: self.view.bounds)
-        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = .white
-        activityIndicator.startAnimating()
-        activityIndicator.center = spinnerView.center
+        self.activityIndicatorView.style = .large
+        self.activityIndicatorView.color = .black
+        self.activityIndicatorView.startAnimating()
+        self.activityIndicatorView.center = self.view.center
         
         DispatchQueue.main.async {
-            spinnerView.addSubview(activityIndicator)
-            self.view.addSubview(spinnerView)
+            self.view.addSubview(self.activityIndicatorView)
         }
         
-        globalSpinner = spinnerView
     }
     
-    func removeSpinner() {
+    func hideSpinner() {
         DispatchQueue.main.async {
-            globalSpinner?.removeFromSuperview()
-            globalSpinner = nil
+            self.activityIndicatorView.removeFromSuperview()
         }
     }
 }
