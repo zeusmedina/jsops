@@ -26,7 +26,6 @@ class ConcreteFileDownloader: FileDownloader {
             return
         }
         let task = URLSession.shared.downloadTask(with: url) { localURL, urlResponse, error in
-            DispatchQueue.main.async {
                 if let error = error {
                     completionHandler(.failure(error))
                     return
@@ -37,7 +36,6 @@ class ConcreteFileDownloader: FileDownloader {
                 }
 
                 completionHandler(.success(jsFile))
-            }
         }
         task.resume()
     }

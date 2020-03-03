@@ -20,7 +20,7 @@ class OperationLogicControllerTests: XCTestCase {
     func testAddOperationTapped() {
         let logicController = OperationsLogicController(fileDownloader: MockSuccessFileDownloader())
         logicController.webViewWrapper = JSExecutorMock()
-        logicController.attachView(view: MockOperationView())
+        logicController.attach(view: MockOperationView())
         // Index should be 1 upon initialization
         XCTAssertEqual(1, logicController.index)
         logicController.addOperationTapped()

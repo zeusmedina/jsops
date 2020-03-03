@@ -37,7 +37,7 @@ class OperationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        logicController.attachView(view: self)
+        logicController.attach(view: self)
     }
     
     /// Inform our logic controller that the button was tapped

@@ -52,7 +52,7 @@ class OperationViewTests: XCTestCase {
     /// we should stop the loading state and show the default state
     func testAppLaunchStateSuccess() {
         let logicController = OperationsLogicController(fileDownloader: successMockFleDownloader)
-        logicController.attachView(view: viewMock)
+        logicController.attach(view: viewMock)
         
         let expectations = [viewMock.showLoadingStateExp,
                             viewMock.showDefaultStateExp,
@@ -63,7 +63,7 @@ class OperationViewTests: XCTestCase {
     /// If downloading our JS file fails, we should prsent an alert
     func testAppLaunchStateError() {
         let logicController = OperationsLogicController(fileDownloader: errorMockFileDownloader)
-        logicController.attachView(view: viewMock)
+        logicController.attach(view: viewMock)
         
         let expectations = [viewMock.showLoadingStateExp,
                             viewMock.presentAlertExp,

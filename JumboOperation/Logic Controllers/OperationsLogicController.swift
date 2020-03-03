@@ -40,7 +40,7 @@ final class OperationsLogicController: NSObject {
      Sets the delegate and begins downloading JS file. Also informs the view to begin showing the loading state
      - parameter view: An OperationView to set as the delegate
      */
-    func attachView(view: OperationView) {
+    func attach(view: OperationView) {
         viewDelegate = view
         viewDelegate?.showLoadingState()
         downloadJSFile()
@@ -62,18 +62,21 @@ final class OperationsLogicController: NSObject {
     }
     
     /// Fetches our javascript string represenation from a URL
+    /// TODO: add ability to retry 
     private func downloadJSFile() {
         fileDownloader.downloadFile(from: Constants.javascriptFileURL) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure:
-                self.viewDelegate?.stopLoadingState()
-                self.viewDelegate?.presentAlert(with: Constants.error)
-            case .success(let jsFile):
-                // Starts downloading our JS file
-                self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
-                                                     messageHandler: self,
-                                                     navigationDelegate: self)
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .failure:
+                    self.viewDelegate?.stopLoadingState()
+                    self.viewDelegate?.presentAlert(with: Constants.error)
+                case .success(let jsFile):
+                    // Starts downloading our JS file
+                    self.webViewWrapper = WebViewWrapper(jsScript: jsFile,
+                                                         messageHandler: self,
+                                                         navigationDelegate: self)
+                }
             }
         }
 
