@@ -2,6 +2,7 @@
 JumboOperation is a simple app that interacts with a web view to execute javascript operations. These operations have an associated progress value which are displayed in the app as progress bars.
 
 ## Installation
+The app was built with Xcode 11.2.1 and targets iOS 13.2.
 There are no 3rd party dependencies in this project. Simply download the xcode project and fire the project up.
 **Occasionally the app fails to download the JS file (an alert is presented). But I didn't add a retry... if this occurs the project needs to be re-ran unfortunately.**
 
