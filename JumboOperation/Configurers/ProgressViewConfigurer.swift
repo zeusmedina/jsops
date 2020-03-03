@@ -36,6 +36,7 @@ struct ProgressViewConfigurer {
         switch message.message {
         case .progress:
             guard let progress = message.progress else { return}
+            // TODO: unit test this math
             let progressValue = Float(Float(progress) / 100)
             progressView.setProgress(progressValue, animated: true)
         case .completed:
