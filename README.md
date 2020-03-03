@@ -3,18 +3,20 @@ JumboOperation is a simple app that interacts with a web view to execute javascr
 
 ## Installation
 There are no 3rd party dependencies in this project. Simply download the xcode project and fire the project up.
+**Occasionally the app fails to download the JS file (an alert is presented). But I didn't add a retry... if this occurs the project needs to be re-ran unfortunately.**
 
 ## Approach
 Before touching any code I did some reading on web views. Specifically on how to execute javascript and listening to messages which led me to WKScriptMessageHandler. Without any UI I started playing around with the API's (setting a source script, evaluating js, etc). Once I was able to recieve messages back I began building out the UI and breaking up my logic.
 
 ## User Experience
-Upon downloading the JS file there is a button that adds a new operation. This operation is represented as a UIProgressView... as it loads the color of the progress is shown in purple. If there's an error running the operation (not returned by the message) we show an alert. If a message returns an error, the progress bar turns red. If a message returns completed, the bar turns green. There is an arbitrary limit of 4 operations imposed.
+Upon downloading the JS file there is a button that adds a new operation. This operation is represented as a UIProgressView... as it loads the color of the progress is shown in purple. If there's an error running the operation (not returned by the message) we show an alert. If a message returns an error, the progress bar turns red. If a message returns completed, the bar turns green. 
+**There is an arbitrary limit of 4 operations imposed.**
 
 ## Architecture + Considerations
 The project follows an architecture similiar to Model-View-Presenter. The view controller conforms to a protocol which is set as a delegate of my logic controller object (ie: the presenter). The logic controller houses business logic and interacts with the web view. The view controller passes along user interaction to the logic controller and the logic controller decides what to do next. This lets us mock out our view in unit tests to ensure functions are getting called when expected. 
 I tried following single responsiblity principles as best as possible... although compromises were made in some places. Interfaces are set as the dependencies instead of concrete types to allow for better testability.
 
-A shortcut I took was in using indices as id's for operations. This allowed me to access a stack view's arrange sub view at a particular index instead of generating a random string for operations and then interating over the view hierarchy (or using a potentially expensive operation such as viewWithTag(). A more robust datasource would be an improvement. 
+**A shortcut I took was in using indices as id's for operations. This allowed me to access a stack view's arrange sub view at a particular index instead of generating a random string for operations and then interating over the view hierarchy (or using a potentially expensive operation such as viewWithTag(). A more robust datasource would be an improvement.**
 
 All UI code was done in code. Zero storyboards.
 
