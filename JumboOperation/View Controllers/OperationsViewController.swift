@@ -88,6 +88,10 @@ extension OperationsViewController: OperationView {
                                       message: text,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.logicController.attach(view: self)
+        }))
         self.present(alert, animated: true)
     }
     
